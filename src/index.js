@@ -7,7 +7,7 @@ import registerServiceWorker from './utils/registerServiceWorker';
 
 var model = new TodoModel('react-todos');
 
-//TODO MGA: register listener model.subscribe : render function ??? WTF 
+//TODO MGA: register listener model.subscribe : render function
 
 ReactDOM.render(<TodoApp model={model} />, document.getElementById('root'));
 
