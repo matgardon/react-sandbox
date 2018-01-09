@@ -1,4 +1,4 @@
-import Utils from '../utils/utils';
+import { store, uuid, extend } from '../utils/utils';
 
 export default class TodoModel {
 
@@ -9,7 +9,7 @@ export default class TodoModel {
 	// separate out parts of your application.
 	constructor(key) {
 		this.key = key;
-		this.todos = Utils.store(key);
+		this.todos = store(key);
 		this.onChanges = [];
 	}
 
@@ -18,13 +18,13 @@ export default class TodoModel {
 	};
 
 	inform() {
-		Utils.store(this.key, this.todos);
-		this.onChanges.forEach(function (cb) { cb(); });
+		store(this.key, this.todos);
+		this.onChanges.forEach(cb => cb());
 	};
 
 	addTodo(title) {
 		this.todos = this.todos.concat({
-			id: Utils.uuid(),
+			id: uuid(),
 			title: title,
 			completed: false
 		});
@@ -38,7 +38,7 @@ export default class TodoModel {
 		// we use map() and filter() everywhere instead of mutating the array or
 		// todo items themselves.
 		this.todos = this.todos.map(todo => {
-			return Utils.extend({}, todo, { completed: checked });
+			return extend({}, todo, { completed: checked });
 		});
 
 		this.inform();
@@ -48,7 +48,7 @@ export default class TodoModel {
 		this.todos = this.todos.map(todo => {
 			return todo !== todoToToggle ?
 				todo :
-				Utils.extend({}, todo, { completed: !todo.completed });
+				extend({}, todo, { completed: !todo.completed });
 		});
 
 		this.inform();
@@ -64,7 +64,7 @@ export default class TodoModel {
 
 	save(todoToSave, text) {
 		this.todos = this.todos.map(todo => {
-			return todo !== todoToSave ? todo : Utils.extend({}, todo, { title: text });
+			return todo !== todoToSave ? todo : extend({}, todo, { title: text });
 		});
 
 		this.inform();

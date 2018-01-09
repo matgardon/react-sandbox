@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import Utils from '../utils/utils';
+import { pluralize } from '../utils/utils';
 
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from '../utils/consts';
 
 export default class TodoFooter extends Component {
 	render() {
-		var activeTodoWord = Utils.pluralize(this.props.count, 'item');
+		var activeTodoWord = pluralize(this.props.count, 'item');
 		var clearButton = null;
 
 		if (this.props.completedCount > 0) {
